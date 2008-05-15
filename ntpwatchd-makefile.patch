@@ -1,0 +1,22 @@
+diff -durN -x '*~' ntpwatchd-0.1.orig/Makefile ntpwatchd-0.1/Makefile
+--- ntpwatchd-0.1.orig/Makefile	2008-02-04 15:36:02.000000000 +0100
++++ ntpwatchd-0.1/Makefile	2008-05-15 14:43:46.000000000 +0200
+@@ -3,6 +3,9 @@
+ NAME=ntpwatchd
+ FILES=ntpwatchd.c ntpwatchd.init ntpwatchd.pl Makefile ntpwatchd.spec
+ NV = $(NAME)-$(VERSION)
++CC = diet -Os gcc
++CFLAGS = -ggdb
++LDFLAGS = 
+ 
+ all: ntpwatchd
+ 
+@@ -10,7 +13,7 @@
+ 	gcc -o $@ -std=gnu99 -DDPTR_LEVEL=9 -Wall -pedantic -O0 -ggdb $^ -lm
+ 
+ ntpwatchd: ntpwatchd.c
+-	diet -Os gcc -o $@ -std=gnu99 -DNDEBUG=1 -Wall -pedantic -ggdb $^ -lm
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ -std=gnu99 -DNDEBUG=1 -Wall -pedantic $^ -lm $(LIBS)
+ 
+ dist: 
+ 	rm -rf $(NV) $(NV).tar $(NV).tar.gz
