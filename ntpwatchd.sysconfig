@@ -1,0 +1,6 @@
+
+# Define services nice level
+SERVICE_RUN_NICE_LEVEL="+1"
+
+# Time server to use
+NTPWATCHD_SERVER="pool.ntp.org"
