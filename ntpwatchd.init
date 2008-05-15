@@ -29,14 +29,13 @@ stop() {
 	fi
 }
 
-reload() {
+condrestart() {
 	if [ -f /var/lock/subsys/ntpwatchd ]; then
-		msg_reloading "ntpwatchd"
 		stop
 		start
 	else
 		msg_not_running ntpwatchd
-		exit 7
+		RETVAL=$1
 	fi
 }
 
@@ -53,14 +52,17 @@ case "$1" in
 	stop
 	start
 	;;
-  reload|force-reload)
-	reload
+  try-restart)
+	condrestart 0
+	;;
+  force-reload)
+	condrestart 7
 	;;
   status)
 	status ntpwatchd
 	;;
   *)
-	msg_usage "$0 {start|stop|restart|reload|status}"
+	msg_usage "$0 {start|stop|restart|try-restart|force-reload|reload|status}"
 	exit 3
 	;;
 esac
