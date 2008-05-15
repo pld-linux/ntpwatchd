@@ -1,0 +1,21 @@
+diff -durN -x '*~' ntpwatchd-0.1.orig/ntpwatchd.pl ntpwatchd-0.1/ntpwatchd.pl
+--- ntpwatchd-0.1.orig/ntpwatchd.pl	2008-02-04 15:36:02.000000000 +0100
++++ ntpwatchd-0.1/ntpwatchd.pl	2008-05-15 15:12:39.000000000 +0200
+@@ -14,7 +14,7 @@
+ my $paddr =gethostbyname($address)
+   or die("Cannot bind address of NTP server ($address).");
+ 
+-system(qw(killall -q /usr/libexec/ntpwatchd)); # just in case
++system(qw(killall -q /usr/sbin/ntpwatchd)); # just in case
+ 
+ $SIG{CHLD} = sub {
+     die("Sub process has ended");
+@@ -38,7 +38,7 @@
+     open(STDERR, ">", $DN);
+     POSIX::setsid();
+     %ENV=();
+-    exec("/usr/libexec/ntpwatchd") or
++    exec("/usr/sbin/ntpwatchd") or
+     exec("/bin/false");
+ }
+ # Allow crashing if it wants to crash
