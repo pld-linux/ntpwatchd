@@ -7,8 +7,7 @@
 . /etc/rc.d/init.d/functions
 . /etc/sysconfig/ntpwatchd
 
-
-start () {
+start() {
 	# Check if the service is already running?
 	if [ ! -f /var/lock/subsys/ntpwatchd ]; then
 		msg_starting "ntpwatchd"
@@ -20,7 +19,7 @@ start () {
 	fi
 }
 
-stop () {
+stop() {
 	if [ -f /var/lock/subsys/ntpwatchd ]; then
 		msg_stopping "ntpwatchd"
 		killproc ntpwatchd
@@ -30,7 +29,7 @@ stop () {
 	fi
 }
 
-reload () {
+reload() {
 	if [ -f /var/lock/subsys/ntpwatchd ]; then
 		msg_reloading "ntpwatchd"
 		stop
@@ -41,34 +40,29 @@ reload () {
 	fi
 }
 
-
 RETVAL=0
 # See how we were called.
 case "$1" in
   start)
-  	start
-      	;;
-
+	start
+	;;
   stop)
-  	stop
+	stop
+	;;
+  restart)
+	stop
+	start
+	;;
+  reload|force-reload)
+	reload
 	;;
   status)
-      	status ntpwatchd
-      	;;
-
-  restart)
-      	stop
-      	start
-      	;;
-
-  reload|force-reload)
-  	reload
+	status ntpwatchd
 	;;
-
   *)
 	msg_usage "$0 {start|stop|restart|reload|status}"
 	exit 3
-      	;;
+	;;
 esac
 
 exit $RETVAL
