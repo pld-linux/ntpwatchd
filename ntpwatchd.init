@@ -62,7 +62,7 @@ case "$1" in
 	status ntpwatchd
 	;;
   *)
-	msg_usage "$0 {start|stop|restart|try-restart|force-reload|reload|status}"
+	msg_usage "$0 {start|stop|restart|try-restart|force-reload|status}"
 	exit 3
 	;;
 esac
